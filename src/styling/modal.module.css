@@ -1,0 +1,15 @@
+.modal {
+	position: absolute;
+	inset: 0;
+	z-index: 99999;
+	display: flex;
+	justify-content: center;
+}
+.modal.bkg {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.modal .box {
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+}

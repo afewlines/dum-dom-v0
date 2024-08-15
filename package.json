@@ -1,0 +1,35 @@
+{
+  "name": "dum-dom",
+  "version": "0.0.3",
+  "description": "dum DOM manipulation library",
+  "author": "brad, seeker",
+  "license": "ISC",
+
+  "type": "module",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsx build.ts --clean --types",
+    "watch": "tsx build.ts --clean --types --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.2",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "esbuild": "^0.23.0",
+    "esbuild-css-modules-plugin": "^3.1.2",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "gsap": "^3.12.5",
+    "prettier": "^3.3.3",
+    "prettier-eslint": "^16.3.0",
+    "sass": "^1.77.8",
+    "tsx": "^4.16.5",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,18 @@
+.modal {
+	position: absolute;
+	inset: 0;
+	z-index: 99999;
+
+	display: flex;
+	justify-content: center;
+
+	&.bkg {
+		background-color: rgba(black, 0.5);
+	}
+	& .box {
+		align-self: center;
+
+		display: flex;
+		flex-direction: column;
+	}
+}
