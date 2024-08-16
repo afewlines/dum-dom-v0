@@ -1,6 +1,7 @@
 import * as esbuild from 'esbuild';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import * as sass from 'sass';
 import CssModulesPlugin from 'esbuild-css-modules-plugin';
 import { execSync } from 'node:child_process';
 
@@ -30,6 +31,18 @@ const opts: esbuild.BuildOptions = {
 				});
 				build.onEnd((b) => {
 					// console.log(`Build done, ${b.errors.length} error${b.errors.length == 1 ? '' : 's'}. `)
+				});
+			},
+		},
+		{
+			name: 'plugin_scss',
+			setup(build) {
+				build.onResolve({ filter: /\.scss$/ }, (args) => ({
+					path: path.resolve(args.resolveDir, args.path),
+					namespace: 'scss',
+				}));
+				build.onLoad({ filter: /.*/, namespace: 'scss' }, async (args) => {
+					return { contents: sass.compile(args.path).css, loader: 'css' };
 				});
 			},
 		},

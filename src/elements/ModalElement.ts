@@ -1,6 +1,6 @@
 import { gsap } from 'gsap'; // __dum_omit
 import { get_element } from '../base';
-import styles from '../styling/modal.module.css';
+import styles from '../styling/modal.module.scss';
 
 // ELEMENT FUNCTION
 //
