@@ -22,10 +22,6 @@ const opts: esbuild.BuildOptions = {
 		{
 			name: 'on_complete',
 			setup(build) {
-				if (build.initialOptions.format == 'esm') {
-					console.log('Building types...');
-					if (process.argv.includes('--types')) execSync('tsc', { stdio: 'inherit' });
-				}
 				build.onStart(() => {
 					console.log('\nBuild starting...');
 				});
@@ -37,12 +33,23 @@ const opts: esbuild.BuildOptions = {
 		{
 			name: 'plugin_scss',
 			setup(build) {
-				build.onResolve({ filter: /\.scss$/ }, (args) => ({
-					path: path.resolve(args.resolveDir, args.path),
-					namespace: 'scss',
-				}));
-				build.onLoad({ filter: /.*/, namespace: 'scss' }, async (args) => {
-					return { contents: sass.compile(args.path).css, loader: 'css' };
+				build.onResolve({ filter: /\.scss$/ }, async (args) => {
+					const source = path.resolve(args.resolveDir, args.path);
+
+					let dest = path.resolve(path.resolve('./dist/css'), path.relative('./src', source));
+					dest = path.join(path.dirname(dest), path.basename(dest, '.scss') + '.css');
+
+					fs.mkdirSync(path.dirname(dest), { recursive: true });
+					fs.writeFileSync(dest, sass.compile(source).css);
+
+					return await build.resolve('./' + path.relative(args.resolveDir, dest), {
+						importer: args.importer,
+						namespace: args.namespace,
+						resolveDir: args.resolveDir,
+						kind: args.kind,
+						pluginData: args.pluginData,
+						with: args.with,
+					});
 				});
 			},
 		},
@@ -55,6 +62,7 @@ const opts: esbuild.BuildOptions = {
 
 async function do_build() {
 	if (process.argv.includes('--types')) {
+		console.log('Building types...');
 		execSync('tsc', { stdio: 'inherit' });
 	}
 	await esbuild.build(opts);
