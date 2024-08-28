@@ -6,9 +6,16 @@
   "license": "ISC",
 
   "type": "module",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/types/",
+  "exports": {
+    ".": "./dist/index.js",
+    "./arrangers": "./dist/arrangers/index.js",
+    "./elements": "./dist/elements/index.js",
+    "./managers": "./dist/managers/index.js",
+    "./utils": "./dist/utils/index.js"
+  },
   "files": [
     "dist/"
   ],

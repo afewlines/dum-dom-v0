@@ -1,9 +1,12 @@
-export { get_element, rem } from './base';
+export * from './base';
 
 // utils
 export { EventManager } from './utils/EventManager';
 export * as AsyncHelpers from './utils/AsyncHelpers';
 export * as Structural from './utils/Structural';
+
+// router
+export { DumRouterAdaptive as DumRouter } from './DumRouter';
 
 // arrangers
 export { ElementArranger } from './arrangers/ElementArranger';

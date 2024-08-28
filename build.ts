@@ -6,8 +6,13 @@ import CssModulesPlugin from 'esbuild-css-modules-plugin';
 import { execSync } from 'node:child_process';
 
 const opts: esbuild.BuildOptions = {
-	entryPoints: ['src/index.ts'],
-	outfile: 'dist/index.esm.js',
+	// entryPoints: ['src/index.ts'],
+	// entryPoints: ['src/elements/index.ts'],
+	entryPoints: ['src/**/index.ts'],
+	// entryPoints: ['src/index.ts', 'src/elements/index.ts'],
+	// outfile: 'dist/index.esm.js',
+	outdir: 'dist',
+	outbase: 'src',
 	platform: 'browser',
 
 	format: 'esm',
@@ -17,6 +22,9 @@ const opts: esbuild.BuildOptions = {
 
 	logLevel: 'info',
 	metafile: true,
+
+	// splitting: true,
+	// treeShaking: true,
 
 	plugins: [
 		{
@@ -55,7 +63,7 @@ const opts: esbuild.BuildOptions = {
 		},
 		CssModulesPlugin({
 			inject: true,
-			emitDeclarationFile: '.css.d.ts',
+			// emitDeclarationFile: '.css.d.ts',
 		}),
 	],
 };
@@ -67,13 +75,13 @@ async function do_build() {
 	}
 	await esbuild.build(opts);
 
-	opts.outfile = 'dist/index.cjs.js';
-	opts.format = 'cjs';
-	await esbuild.build(opts);
+	// opts.outfile = 'dist/index.cjs.js';
+	// opts.format = 'cjs';
+	// await esbuild.build(opts);
 
-	opts.outfile = 'dist/index.min.js';
-	opts.minify = true;
-	await esbuild.build(opts);
+	// opts.outfile = 'dist/index.min.js';
+	// opts.minify = true;
+	// await esbuild.build(opts);
 }
 
 // main
