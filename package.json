@@ -8,12 +8,14 @@
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "types": "dist/types/",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
     "./arrangers": "./dist/arrangers/index.js",
+    "./components": "./dist/components/index.js",
     "./elements": "./dist/elements/index.js",
     "./managers": "./dist/managers/index.js",
+    "./router": "./dist/router/index.js",
     "./utils": "./dist/utils/index.js"
   },
   "files": [

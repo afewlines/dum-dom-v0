@@ -1,12 +1,13 @@
-import { get_element } from './base';
+import { get_element } from '../base';
+import { on_next_frame } from '../utils/AsyncHelpers';
+import { ComponentLibrary } from '../components/components';
 
 type RootElement = Element | Array<Element> | string | undefined;
 
 type RootFn = (container: Element) => RootElement;
 
 type DeactivateFn = () => void;
-/** if returns function, replace deactivate with that */
-type ActivateFn = () => DeactivateFn | (() => Element | undefined);
+type ActivateFn = () => void | DeactivateFn;
 
 export interface RouteBase {
 	name: string;
@@ -121,7 +122,11 @@ export class DumRouter {
 			else this.container.innerHTML = res;
 		}
 
-		route.deactivate = route.activate?.() ?? route.deactivate;
+		ComponentLibrary.check_watch_targets(this.container.querySelectorAll('*'));
+
+		on_next_frame(() => {
+			route.deactivate = route.activate?.() ?? route.deactivate;
+		});
 	}
 }
 export class DumRouterNoOrigin extends DumRouter {
