@@ -1,3 +1,4 @@
+import { gsap } from 'gsap'; // __dum_omit
 import { type ElementOpts, get_element } from '../base';
 
 /** Represents state of item controlled by {@link ArrangerItem}.

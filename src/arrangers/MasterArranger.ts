@@ -1,5 +1,6 @@
-import { AsyncHelpers } from '../utils';
+import { gsap } from 'gsap'; // __dum_omit
 import { get_element } from '../base';
+import { AsyncHelpers } from '../utils';
 import { iter_filter } from '../utils/Structural';
 
 export enum STATE {

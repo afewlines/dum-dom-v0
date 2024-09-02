@@ -1,5 +1,6 @@
+import { gsap } from 'gsap'; // __dum_omit
 import { get_element } from '../base';
-import { map_map, iter_map } from '../utils/Structural';
+import { iter_map, map_map } from '../utils/Structural';
 import { ARRANGER_ITEM_STATE } from './ElementArranger';
 
 // element-focused
