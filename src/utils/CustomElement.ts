@@ -61,17 +61,18 @@ class _CustomElementManager {
 		extended?: keyof HTMLElementTagNameMap
 	) {
 		if (this.elements.has(tag_name))
-			throw new Error(`custom element already registered: '${tag_name}'`);
+			throw new Error(`Custom element already registered: '${tag_name}'`);
 		for (const [name, registered] of this.elements.entries())
 			if (base_class === registered._class)
-				throw new Error(`custom element '${tag_name}' already registered as '${name}'`);
+				throw new Error(`Custom element '${tag_name}' already registered as '${name}'`);
 
-		this.elements.set(tag_name, new _CustomElement(tag_name, base_class, extended));
+		const _element = new _CustomElement(tag_name, base_class, extended);
+		this.elements.set(tag_name, _element);
 		if (extended !== undefined) {
-			customElements.define(tag_name, base_class, { extends: extended });
+			customElements.define(tag_name, _element._class, { extends: extended });
 			this.watcher_targets.set(tag_name, extended);
 			this.check_watch_targets(document.querySelectorAll(tag_name));
-		} else customElements.define(tag_name, base_class);
+		} else customElements.define(tag_name, _element._class);
 
 		console.log(`Registered custom element: ${tag_name}`);
 	}

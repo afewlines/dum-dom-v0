@@ -2,12 +2,10 @@ import { type ElementOpts, get_element } from '../utils/Core';
 import { type ElementCallbacks } from '../utils/Core';
 import { type ArrangerTransitions, ElementArranger } from '../arrangers/ElementArranger';
 
-// CONSTANTS
-export const KeyAttribute = 'skr_key';
-
 // TYPES
 type KeyFn<T> = (value: T) => string;
-type ItemInitFn<T> = (key: string, value: T) => Element;
+type TemplateFn<T> = (key: string, value: T) => Element;
+type ItemInitFn<T> = (key: string, value: T, element: Element) => Element;
 
 // INTERFACES
 export interface ArrayManagerOpts<T> extends ElementOpts {
@@ -15,8 +13,9 @@ export interface ArrayManagerOpts<T> extends ElementOpts {
 	array: Array<T>;
 	/** Element key function */
 	key_fn: KeyFn<T>;
+	init_fn?: ItemInitFn<T>;
 	/** Optional template, otherwise uses target's :first-child */
-	template?: ItemInitFn<T> | Element;
+	template?: TemplateFn<T> | Element;
 
 	transitions?: ArrangerTransitions;
 
@@ -27,12 +26,13 @@ export class ArrayManager<T> {
 	public array: Array<T>;
 
 	protected key_fn: KeyFn<T>;
+	protected init_fn?: ItemInitFn<T>;
 	protected transitions?: ArrangerTransitions;
 
 	/** Container element which is the parent of array elements */
 	public container: Element;
 	/** Template to use as base for each array element */
-	public template: ItemInitFn<T> | Element;
+	public template: TemplateFn<T> | Element;
 
 	public elements: Map<string, Element>;
 	public arranger: ElementArranger;
@@ -42,6 +42,7 @@ export class ArrayManager<T> {
 	constructor(opts: ArrayManagerOpts<T>) {
 		this.array = opts.array;
 		this.key_fn = opts.key_fn;
+		this.init_fn = opts.init_fn;
 
 		this.transitions = opts.transitions;
 
@@ -73,6 +74,8 @@ export class ArrayManager<T> {
 			typeof this.template === 'function'
 				? this.template(key, item)
 				: (this.template.cloneNode(true) as Element);
+
+		this.init_fn?.(key, item, element);
 
 		// finalize
 		this.elements.set(key, element);
