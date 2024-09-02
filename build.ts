@@ -8,23 +8,27 @@ import { execSync } from 'node:child_process';
 const opts: esbuild.BuildOptions = {
 	// entryPoints: ['src/index.ts'],
 	// entryPoints: ['src/elements/index.ts'],
-	entryPoints: ['src/**/index.ts'],
+	// entryPoints: ['src/**/index.ts'],
+	entryPoints: ['src/**/*.ts'],
 	// entryPoints: ['src/index.ts', 'src/elements/index.ts'],
 	// outfile: 'dist/index.esm.js',
 	outdir: 'dist',
-	outbase: 'src',
+	// outbase: 'src',
 	platform: 'browser',
 
 	format: 'esm',
-	bundle: true,
+	// bundle: true,
 	sourcemap: true,
 	minify: false,
+
+	bundle: true,
+	splitting: true,
+	treeShaking: true,
 
 	logLevel: 'info',
 	metafile: true,
 
-	// splitting: true,
-	// treeShaking: true,
+	external: ['gsap'],
 
 	plugins: [
 		{

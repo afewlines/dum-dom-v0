@@ -10,7 +10,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "emitDeclarationOnly": true,
-    "declarationDir": "./dist",
+    "declarationDir": "./dist/src",
 
     "isolatedModules": true,
     "esModuleInterop": true, 

@@ -6,17 +6,23 @@
   "license": "ISC",
 
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./arrangers": "./dist/arrangers/index.js",
-    "./components": "./dist/components/index.js",
-    "./elements": "./dist/elements/index.js",
-    "./managers": "./dist/managers/index.js",
-    "./router": "./dist/router/index.js",
-    "./utils": "./dist/utils/index.js"
+    ".": "./dist/src/index.js",
+    "./arrangers": "./dist/src/arrangers/index.js",
+    "./components": "./dist/src/components/index.js",
+    "./elements": "./dist/src/elements/index.js",
+    "./managers": "./dist/src/managers/index.js",
+    "./router": "./dist/src/router/index.js",
+    "./utils": "./dist/src/utils/index.js",
+    
+    "./base": "./dist/src/base.js",
+    "./arrangers/*": "./dist/src/arrangers/*.js",
+    "./components/*": "./dist/src/components/*.js",
+    "./elements/*": "./dist/src/elements/*.js",
+    "./managers/*": "./dist/src/managers/*.js",
+    "./router/*": "./dist/src/router/*.js",
+    "./utils/*": "./dist/src/utils/*.js"
   },
   "files": [
     "dist/"
@@ -24,6 +30,9 @@
   "scripts": {
     "build": "tsx build.ts --clean --types",
     "watch": "tsx build.ts --clean --types --watch"
+  },
+  "peerDependencies": {
+    "gsap": "^3.12.5"
   },
   "devDependencies": {
     "@types/node": "^22.0.2",
@@ -34,7 +43,6 @@
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "gsap": "^3.12.5",
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
     "sass": "^1.77.8",
