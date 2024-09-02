@@ -5,7 +5,7 @@ import { type ArrangerTransitions, ElementArranger } from '../arrangers/ElementA
 // TYPES
 type KeyFn<T> = (value: T) => string;
 type TemplateFn<T> = (key: string, value: T) => Element;
-type ItemInitFn<T> = (key: string, value: T, element: Element) => Element;
+type ItemInitFn<T> = (key: string, value: T, element: Element) => void;
 
 // INTERFACES
 export interface ArrayManagerOpts<T> extends ElementOpts {
