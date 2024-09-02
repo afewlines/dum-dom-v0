@@ -1,5 +1,5 @@
 import { gsap } from 'gsap'; // __dum_omit
-import { type ElementOpts, get_element } from '../base';
+import { type ElementOpts, get_element } from '../utils/Core';
 
 // ELEMENT TOGGLE
 export interface ToggleElementTransitions {
@@ -27,7 +27,8 @@ export class ToggleElement {
 	protected on_update?: () => void;
 	constructor(opts: ToggleElementOpts) {
 		this.element = get_element(opts.target);
-		this._active = opts.initial || true;
+		this._active = opts.initial ?? false;
+		// this _was defaulting every time to true... dunno why.
 
 		this.transitions = opts.transitions;
 		this.on_update = opts.on_update;
@@ -58,7 +59,7 @@ export class ToggleElement {
 	public set(state: boolean): boolean {
 		if (this._applying) return false;
 		this._applying = true;
-		const changed = this._active != state;
+		const changed = this._active !== state;
 		this._active = state;
 
 		if (changed) {

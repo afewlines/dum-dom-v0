@@ -1,4 +1,4 @@
 export * as ArrayManager from './ArrayManager';
-export * as LiteralArrayManager from './LiteralArrayManager';
-export * as MulticontainerManager from './MulticontainerManager';
+export * as EventManager from './EventManager';
+export * as PointerManager from './PointerManager';
 export * as SceneManager from './SceneManager';

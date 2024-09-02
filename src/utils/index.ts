@@ -1,4 +1,3 @@
 export * as AsyncHelpers from './AsyncHelpers';
-export * as EventManager from './EventManager';
-export * as PointerManager from './PointerManager';
+export * as CustomElement from './CustomElement';
 export * as Structural from './Structural';

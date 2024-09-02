@@ -1,5 +1,5 @@
 import { gsap } from 'gsap'; // __dum_omit
-import { get_element } from '../base';
+import { get_element } from '../utils/Core';
 import { AsyncHelpers } from '../utils';
 import { iter_filter } from '../utils/Structural';
 
@@ -17,9 +17,7 @@ export interface ManagedContainer {
 	last_transform?: DOMMatrix;
 }
 
-export interface ManagedMaster extends ManagedContainer {
-	// el: Element;
-}
+export type ManagedMaster = ManagedContainer;
 
 export interface ManagedItem<T> {
 	value: T;
@@ -78,11 +76,11 @@ export namespace spatial {
 
 		// if same thing, return identity
 		const mat = new DOMMatrix();
-		if (root == el) return mat;
+		if (root === el) return mat;
 
 		// otherwise compute master
 		let pel: Element | null = el;
-		while (pel && pel != root) {
+		while (pel && pel !== root) {
 			const pmat = get_element_transform(pel);
 			mat.multiplySelf(pmat);
 
@@ -124,7 +122,7 @@ export namespace spatial {
 
 function get_timeline<T>(item: ManagedItem<T>) {
 	return (
-		item._tl ||
+		item._tl ??
 		(item._tl = gsap.timeline({
 			autoRemoveChildren: true,
 			smoothChildTiming: true,
@@ -216,7 +214,7 @@ export class MasterArranger<T> {
 			value: value,
 			el: el,
 			state: STATE.INITIAL,
-			container: this.get_container(parent || el.parentElement || this.master.el),
+			container: this.get_container(parent ?? el.parentElement ?? this.master.el),
 		};
 
 		this.item_map.set(value, item);
@@ -348,6 +346,7 @@ export class MasterArranger<T> {
 		// update position/transform
 	}
 	public reposition(value: T) {
+		// TODO maybe rename to `update_position`
 		const item = this.get_item(value);
 		// TODO repostions don't move quite right w/ padding/gap/margin/etc? something's off
 		if (this.transitions?.move) {
@@ -378,7 +377,7 @@ export class MasterArranger<T> {
 		} else {
 			const container = this.get_container(parent);
 			const doomed = new Set<T>(
-				iter_filter(this.item_map.keys(), (v) => this.get_item(v).container == container)
+				iter_filter(this.item_map.keys(), (v) => this.get_item(v).container === container)
 			);
 
 			for (const child of children) {

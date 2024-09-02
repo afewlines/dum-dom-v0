@@ -1,4 +1,4 @@
-import { get_element } from '../base';
+import { get_element } from '../utils/Core';
 
 // base
 type EventType = keyof HTMLElementEventMap;
@@ -32,7 +32,7 @@ export class EventManager {
 	private _listeners: EventTypeMap<(ev: Event) => unknown> = {};
 
 	constructor(opts: EventManagerOpts) {
-		this._target = get_element((opts.target || window) as Element | string) as EventTarget;
+		this._target = get_element((opts.target ?? window) as Element | string) as EventTarget;
 		this.map = (() => {
 			const res: EventManagerMap = {};
 			// const m = opts.map;
@@ -41,7 +41,7 @@ export class EventManager {
 				const value = opts.map[key];
 
 				res[key] = [];
-				if (typeof value == 'string') later[key] = value;
+				if (typeof value === 'string') later[key] = value;
 				else if (Array.isArray(value))
 					res[key].push(...(value as Array<EventListenerCallback<typeof key>>));
 				else res[key].push(value as EventListenerCallback<typeof key>);
@@ -85,7 +85,7 @@ export class EventManager {
 	 * @returns true if target changed, false otherwise
 	 */
 	public set_target(target: EventTarget): boolean {
-		if (target == this._target) return false;
+		if (target === this._target) return false;
 		else {
 			if (this._active) {
 				this.remove();

@@ -6,24 +6,19 @@ import CssModulesPlugin from 'esbuild-css-modules-plugin';
 import { execSync } from 'node:child_process';
 
 const opts: esbuild.BuildOptions = {
-	// entryPoints: ['src/index.ts'],
-	// entryPoints: ['src/elements/index.ts'],
-	// entryPoints: ['src/**/index.ts'],
 	entryPoints: ['src/**/*.ts'],
-	// entryPoints: ['src/index.ts', 'src/elements/index.ts'],
-	// outfile: 'dist/index.esm.js',
 	outdir: 'dist',
-	// outbase: 'src',
-	platform: 'browser',
+	outbase: 'src',
 
+	platform: 'browser',
 	format: 'esm',
-	// bundle: true,
-	sourcemap: true,
-	minify: false,
 
 	bundle: true,
 	splitting: true,
 	treeShaking: true,
+	minify: true,
+
+	chunkNames: 'chunks/[ext]/[name]-[hash]',
 
 	logLevel: 'info',
 	metafile: true,
@@ -32,23 +27,15 @@ const opts: esbuild.BuildOptions = {
 
 	plugins: [
 		{
-			name: 'on_complete',
-			setup(build) {
-				build.onStart(() => {
-					console.log('\nBuild starting...');
-				});
-				build.onEnd((b) => {
-					// console.log(`Build done, ${b.errors.length} error${b.errors.length == 1 ? '' : 's'}. `)
-				});
-			},
-		},
-		{
 			name: 'plugin_scss',
 			setup(build) {
 				build.onResolve({ filter: /\.scss$/ }, async (args) => {
 					const source = path.resolve(args.resolveDir, args.path);
 
-					let dest = path.resolve(path.resolve('./dist/css'), path.relative('./src', source));
+					let dest = path.resolve(
+						path.resolve('./dist/chunks/css'),
+						path.relative('./src', source)
+					);
 					dest = path.join(path.dirname(dest), path.basename(dest, '.scss') + '.css');
 
 					fs.mkdirSync(path.dirname(dest), { recursive: true });
@@ -67,7 +54,6 @@ const opts: esbuild.BuildOptions = {
 		},
 		CssModulesPlugin({
 			inject: true,
-			// emitDeclarationFile: '.css.d.ts',
 		}),
 	],
 };

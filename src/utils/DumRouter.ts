@@ -1,6 +1,6 @@
-import { get_element } from '../base';
-import { on_next_frame } from '../utils/AsyncHelpers';
-import { ComponentLibrary } from '../components/components';
+import { get_element } from './Core';
+import { on_next_frame } from './AsyncHelpers';
+import { CustomElementManager } from './CustomElement';
 
 type RootElement = Element | Array<Element> | string | undefined;
 
@@ -45,7 +45,7 @@ export class DumRouter {
 			}
 		}
 
-		window.addEventListener('popstate', (ev) => {
+		window.addEventListener('popstate', () => {
 			this.handle_location();
 		});
 
@@ -92,12 +92,12 @@ export class DumRouter {
 		// clean out other head additions
 		// only nukes things with 'dum_source' attrib
 		document.head.querySelectorAll('[dum_source]').forEach((el) => {
-			if (el.getAttribute('dum_source') != route.path) el.remove();
+			if (el.getAttribute('dum_source') !== route.path) el.remove();
 		});
 
 		if (route.head_items === undefined) return;
 		for (const item of route.head_items) {
-			const el = typeof item == 'function' ? item() : item;
+			const el = typeof item === 'function' ? item() : item;
 			if (el === undefined) continue;
 			el.setAttribute('dum_source', route.path);
 			document.head.appendChild(el);
@@ -122,7 +122,7 @@ export class DumRouter {
 			else this.container.innerHTML = res;
 		}
 
-		ComponentLibrary.check_watch_targets(this.container.querySelectorAll('*'));
+		CustomElementManager.check_watch_targets(this.container.querySelectorAll('*'));
 
 		on_next_frame(() => {
 			route.deactivate = route.activate?.() ?? route.deactivate;
@@ -133,7 +133,7 @@ export class DumRouterNoOrigin extends DumRouter {
 	protected get location(): string {
 		return window.location.hash.replace(/^#/, '');
 	}
-	protected set_location(path: string, replace?: boolean): void {
+	protected set_location(path: string, _replace?: boolean): void {
 		window.location.hash = path;
 	}
 }

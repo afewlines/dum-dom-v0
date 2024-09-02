@@ -1,29 +1,22 @@
-export * from './base';
-
 // utils
-export { EventManager } from './utils/EventManager';
 export * as AsyncHelpers from './utils/AsyncHelpers';
+export * as Core from './utils/Core';
+export * as CustomElement from './utils/CustomElement';
+export * as DumRouter from './utils/DumRouter';
+export * as EventManager from './managers/EventManager';
 export * as Structural from './utils/Structural';
 
-// router
-export { DumRouterAdaptive as DumRouter } from './router/DumRouter';
+// elements
+export * as FunctionElement from './elements/FunctionElement';
+export * as InputElement from './elements/InputElement';
+export * as ModalElement from './elements/ModalElement';
+export * as TextElement from './elements/TextElement';
+export * as ToggleElement from './elements/ToggleElement';
 
 // arrangers
-export { ElementArranger } from './arrangers/ElementArranger';
-export { ScatteredArranger } from './arrangers/ScatteredArranger';
-export { MasterArranger } from './arrangers/MasterArranger';
+export * as ElementArranger from './arrangers/ElementArranger';
+export * as MasterArranger from './arrangers/MasterArranger';
 
-// responsive input element controller
-export { InputElement } from './elements/InputElement';
-// element content controllers
-export { FunctionElement } from './elements/FunctionElement';
-export { TextElement } from './elements/TextElement';
-// element state controllers
-export { ModalElement } from './elements/ModalElement';
-export { ToggleElement } from './elements/ToggleElement';
-
-// multi-element managers
-export { ArrayManager } from './managers/ArrayManager';
-export { LiteralArrayManager } from './managers/LiteralArrayManager';
-export { MulticontainerManager } from './managers/MulticontainerManager';
-export { SceneManager } from './managers/SceneManager';
+// managers
+export * as ArrayManager from './managers/ArrayManager';
+export * as SceneManager from './managers/SceneManager';

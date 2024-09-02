@@ -1,4 +1,4 @@
-import { type ElementOpts, get_element } from '../base';
+import { type ElementOpts, get_element } from '../utils/Core';
 import { type ArrangerTransitions, ElementArranger } from '../arrangers/ElementArranger';
 
 // ELEMENT SWITCH
@@ -27,7 +27,7 @@ export class SceneManager {
 
 		this.on_update = opts.on_update;
 
-		this._index = opts.initial || 0;
+		this._index = opts.initial ?? 0;
 		this._last = this._index;
 		this._placeholder = (() => {
 			const el = document.createElement('placeholder_switch');
@@ -80,15 +80,15 @@ export class SceneManager {
 	public set_scene(scene: Element): boolean;
 	public set_scene(auto: number | Element): boolean;
 	public set_scene(target: number | Element): boolean {
-		if (typeof target != 'number') {
+		if (typeof target !== 'number') {
 			target = this.scenes.indexOf(target);
 			if (target < 0) return false;
 		}
-		if (this._index == target) return false;
+		if (this._index === target) return false;
 
 		this._last = this._index;
 		this._index = target;
-		this.arranger.update([this._index == -1 ? this._placeholder : this.scenes[this._index]]);
+		this.arranger.update([this._index === -1 ? this._placeholder : this.scenes[this._index]]);
 
 		this.on_update?.();
 		return true;

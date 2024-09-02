@@ -1,4 +1,5 @@
-import { type ElementCallbacks, type ElementOpts, get_element } from '../base';
+import { type ElementOpts, get_element } from '../utils/Core';
+import { type ElementCallbacks } from '../utils/Core';
 
 // type InputElementValueProp = 'value' | 'valueAsDate' | 'valueAsNumber' | 'checked';
 type InputElementValueProp = 'value' | 'valueAsDate' | 'valueAsNumber' | 'checked' | 'files';
@@ -35,12 +36,13 @@ export class InputElement<
 		this.callbacks = opts.callbacks;
 
 		this._value = opts.initial;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(this.element as any)[this._prop] = opts.initial;
 		this._last = opts.initial;
 		this.element.value = opts.initial as string;
 
 		this.element.addEventListener('keyup', (ev) => {
-			if (ev.key == 'Enter') this.submit();
+			if (ev.key === 'Enter') this.submit();
 		});
 		this.element.addEventListener('input', () => {
 			this.update();
@@ -52,7 +54,7 @@ export class InputElement<
 		return this._value;
 	}
 	public set value(value: ET[P]) {
-		// this.element.value = value as string;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(this.element as any)[this._prop] = value;
 		this._value = value;
 		this.update();

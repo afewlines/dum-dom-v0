@@ -8,21 +8,16 @@
   "type": "module",
   "types": "dist/types/index.d.ts",
   "exports": {
-    ".": "./dist/src/index.js",
-    "./arrangers": "./dist/src/arrangers/index.js",
-    "./components": "./dist/src/components/index.js",
-    "./elements": "./dist/src/elements/index.js",
-    "./managers": "./dist/src/managers/index.js",
-    "./router": "./dist/src/router/index.js",
-    "./utils": "./dist/src/utils/index.js",
+    ".": "./dist/index.js",
+    "./arrangers": "./dist/arrangers/index.js",
+    "./elements": "./dist/elements/index.js",
+    "./managers": "./dist/managers/index.js",
+    "./utils": "./dist/utils/index.js",
     
-    "./base": "./dist/src/base.js",
-    "./arrangers/*": "./dist/src/arrangers/*.js",
-    "./components/*": "./dist/src/components/*.js",
-    "./elements/*": "./dist/src/elements/*.js",
-    "./managers/*": "./dist/src/managers/*.js",
-    "./router/*": "./dist/src/router/*.js",
-    "./utils/*": "./dist/src/utils/*.js"
+    "./arrangers/*": "./dist/arrangers/*.js",
+    "./elements/*": "./dist/elements/*.js",
+    "./managers/*": "./dist/managers/*.js",
+    "./utils/*": "./dist/utils/*.js"
   },
   "files": [
     "dist/"

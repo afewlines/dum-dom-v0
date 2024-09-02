@@ -1,5 +1,5 @@
 import { gsap } from 'gsap'; // __dum_omit
-import { type ElementOpts, get_element } from '../base';
+import { type ElementOpts, get_element } from '../utils/Core';
 
 /** Represents state of item controlled by {@link ArrangerItem}.
  * @enum
@@ -95,7 +95,7 @@ export class ElementArranger {
 	 */
 	get timeline(): gsap.core.Timeline {
 		return (
-			this._timeline ||
+			this._timeline ??
 			(this._timeline = gsap.timeline({
 				autoRemoveChildren: true,
 				smoothChildTiming: true,
@@ -107,7 +107,7 @@ export class ElementArranger {
 	 * @see _timeline
 	 */
 	get transitioning(): boolean {
-		return this._timeline != undefined;
+		return this._timeline !== undefined;
 	}
 
 	/** Create item for given element.
@@ -129,11 +129,11 @@ export class ElementArranger {
 	 * @remarks If no enter transition given, simply sets {@link ArrangerItem.state | state} to {@link ARRANGER_ITEM_STATE.ACTIVE | ACTIVE}.
 	 */
 	protected element_enter(element: Element): void {
-		const item = this.item_map.get(element) || this.create_item(element);
-		if (item.state == ARRANGER_ITEM_STATE.ENTERING) {
+		const item = this.item_map.get(element) ?? this.create_item(element);
+		if (item.state === ARRANGER_ITEM_STATE.ENTERING) {
 			console.warn('Element was already entering', element.innerHTML, item);
 			return;
-		} else if (item.state == ARRANGER_ITEM_STATE.LEAVING) {
+		} else if (item.state === ARRANGER_ITEM_STATE.LEAVING) {
 			// TODO: do we need to process this? probably
 		}
 
@@ -157,8 +157,8 @@ export class ElementArranger {
 		if (this.transitions?.move) {
 			const item = this.item_map.get(element) as ArrangerItem;
 			const new_pos = element.getBoundingClientRect();
-			if (item.last_pos && (item.last_pos.x != new_pos.x || item.last_pos.y != new_pos.y)) {
-				const now = time == undefined ? this.timeline.time() : time;
+			if (item.last_pos && (item.last_pos.x !== new_pos.x || item.last_pos.y !== new_pos.y)) {
+				const now = time === undefined ? this.timeline.time() : time;
 				this.timeline.call(() => {
 					item.state = ARRANGER_ITEM_STATE.MOVING;
 				});
@@ -177,8 +177,8 @@ export class ElementArranger {
 	protected element_leave(element: Element): Element | undefined {
 		// returns element if it should be kept in order
 		const item = this.item_map.get(element);
-		if (item == undefined) return undefined;
-		if (item.state == ARRANGER_ITEM_STATE.LEAVING) return element;
+		if (item === undefined) return undefined;
+		if (item.state === ARRANGER_ITEM_STATE.LEAVING) return element;
 
 		// do transition or just remove
 		if (this.transitions?.leave) {
@@ -260,7 +260,7 @@ export class ElementArranger {
 				let old_index: number;
 				if (
 					(old_index = old_order.indexOf(target_el)) < 0 ||
-					this.item_map.get(old_order[old_index])?.state == ARRANGER_ITEM_STATE.LEAVING
+					this.item_map.get(old_order[old_index])?.state === ARRANGER_ITEM_STATE.LEAVING
 				) {
 					this.element_enter(target_el);
 					this._order.splice(i + leaving, 0, target_el);

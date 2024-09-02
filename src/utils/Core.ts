@@ -1,8 +1,3 @@
-/** DUMDOM module.
- * @author brad, seeker
- * @module
- */
-
 /** Generic lifecycle callbacks.
  * @
  */
@@ -28,9 +23,9 @@ export interface ElementOpts {
  * @throws Throws Error when {@link target} selector doesn't match an element
  */
 export function get_element(target: Element | string, parent?: Element): Element {
-	if (typeof target == 'string')
+	if (typeof target === 'string')
 		return (() => {
-			const el = (parent || document).querySelector(target);
+			const el = (parent ?? document).querySelector(target);
 			if (!el) throw new Error(`Could not find element for selector '${target}'`);
 			return el;
 		})();

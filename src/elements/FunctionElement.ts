@@ -1,4 +1,4 @@
-import { type ElementOpts, get_element } from '../base';
+import { type ElementOpts, get_element } from '../utils/Core';
 
 // ELEMENT FUNCTION
 //

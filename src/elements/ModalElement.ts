@@ -1,5 +1,5 @@
 import { gsap } from 'gsap'; // __dum_omit
-import { get_element } from '../base';
+import { get_element } from '../utils/Core';
 import styles from '../styling/modal.module.scss';
 
 // ELEMENT FUNCTION
@@ -34,7 +34,7 @@ export class ModalElement {
 
 	constructor(opts: ModalElementOpts) {
 		this.parent = opts.parent ? get_element(opts.parent) : undefined;
-		this.message = opts.message || '';
+		this.message = opts.message ?? '';
 		this.init_fn = opts.init_fn;
 		this.transitions = opts.transitions;
 
