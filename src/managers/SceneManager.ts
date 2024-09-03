@@ -1,5 +1,6 @@
-import { type ElementOpts, get_element } from '../utils/Core';
 import { type ArrangerTransitions, ElementArranger } from '../arrangers/ElementArranger';
+import { type ElementOpts } from '../common';
+import { get_element } from '../utils/Core';
 
 // ELEMENT SWITCH
 

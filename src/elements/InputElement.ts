@@ -1,5 +1,5 @@
-import { type ElementOpts, get_element } from '../utils/Core';
-import { type ElementCallbacks } from '../utils/Core';
+import { type ElementCallbacks, type ElementOpts } from '../common';
+import { get_element } from '../utils/Core';
 
 // type InputElementValueProp = 'value' | 'valueAsDate' | 'valueAsNumber' | 'checked';
 type InputElementValueProp = 'value' | 'valueAsDate' | 'valueAsNumber' | 'checked' | 'files';

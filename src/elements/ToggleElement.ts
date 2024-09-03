@@ -1,5 +1,6 @@
 import { gsap } from 'gsap'; // __dum_omit
-import { type ElementOpts, get_element } from '../utils/Core';
+import { type ElementOpts } from '../common';
+import { get_element } from '../utils/Core';
 
 // ELEMENT TOGGLE
 export interface ToggleElementTransitions {

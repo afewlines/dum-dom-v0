@@ -4,7 +4,6 @@ export * as Core from './utils/Core';
 export * as CustomElement from './utils/CustomElement';
 export * as DumRouter from './utils/DumRouter';
 export * as EventManager from './managers/EventManager';
-export * as Structural from './utils/Structural';
 
 // elements
 export * as FunctionElement from './elements/FunctionElement';

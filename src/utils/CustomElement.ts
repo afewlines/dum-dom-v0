@@ -1,4 +1,7 @@
 type ctor<ET extends HTMLElement> = { new (...args: unknown[]): ET };
+interface AtributeMap {
+	[key: string]: string;
+}
 
 export class CustomElement extends HTMLElement {
 	static observedAttributes?: string[];
@@ -44,6 +47,23 @@ class _CustomElement<T extends CustomElement = CustomElement> {
 				this.on_attribute_change?.(name, prev, value);
 			}
 		} as unknown as ctor<T>;
+	}
+
+	public instantiate(): T;
+	public instantiate(ref: string): T;
+	public instantiate(attributes: AtributeMap): T;
+	public instantiate(data?: string | AtributeMap): T;
+	public instantiate(target?: string | AtributeMap): T {
+		let el: T;
+
+		if (this.extended === undefined) el = document.createElement(this.tag_name) as T;
+		else el = document.createElement(this.extended, { is: this.tag_name }) as T;
+
+		if (target !== undefined)
+			if (typeof target === 'string') el.setAttribute('ref', target);
+			else for (const key in target) el.setAttribute(key, target[key]);
+
+		return el;
 	}
 }
 
@@ -106,15 +126,31 @@ class _CustomElementManager {
 			throw new Error(`Instantiated component already exists: '${ref}'`);
 		this.instantiated.set(ref, target);
 	}
+	public remove_instance(ref: string) {
+		if (!this.instantiated.has(ref)) throw new Error(`Instantiated not registered: '${ref}'`);
+		this.instantiated.delete(ref);
+	}
+	public create_instance<T extends CustomElement>(tag_name: string): T;
+	public create_instance<T extends CustomElement>(tag_name: string, ref: string): T;
+	public create_instance<T extends CustomElement>(tag_name: string, attributes: AtributeMap): T;
+	public create_instance<T extends CustomElement>(
+		tag_name: string,
+		data?: string | AtributeMap
+	): T {
+		const _element = this.elements.get(tag_name) as _CustomElement<T> | undefined;
+		if (_element === undefined)
+			throw new Error(`Could not find custom element with tag name '${tag_name}'`);
+
+		return _element.instantiate(data);
+	}
 	public get_instance<T extends CustomElement>(ref: string): T {
 		const res = this.instantiated.get(ref);
 		if (res === undefined) throw new Error(`Could not find referenced component: '${ref}'`);
 		return res as T;
 	}
-	public remove_instance(ref: string) {
-		if (!this.instantiated.has(ref)) throw new Error(`Instantiated not registered: '${ref}'`);
-		this.instantiated.delete(ref);
-	}
 }
 export const CustomElementManager = new _CustomElementManager();
+export const create_instance = CustomElementManager.create_instance;
 export const get_instance = CustomElementManager.get_instance;
+
+// TODO custom element instance factory

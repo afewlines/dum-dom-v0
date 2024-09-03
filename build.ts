@@ -16,9 +16,9 @@ const opts: esbuild.BuildOptions = {
 	bundle: true,
 	splitting: true,
 	treeShaking: true,
-	minify: true,
+	minify: false,
 
-	chunkNames: 'chunks/[ext]/[name]-[hash]',
+	chunkNames: 'data/[ext]/[name]-[hash]',
 
 	logLevel: 'info',
 	metafile: true,
@@ -32,10 +32,7 @@ const opts: esbuild.BuildOptions = {
 				build.onResolve({ filter: /\.scss$/ }, async (args) => {
 					const source = path.resolve(args.resolveDir, args.path);
 
-					let dest = path.resolve(
-						path.resolve('./dist/chunks/css'),
-						path.relative('./src', source)
-					);
+					let dest = path.resolve(path.resolve('./dist/data/css'), path.relative('./src', source));
 					dest = path.join(path.dirname(dest), path.basename(dest, '.scss') + '.css');
 
 					fs.mkdirSync(path.dirname(dest), { recursive: true });
@@ -64,6 +61,39 @@ async function do_build() {
 		execSync('tsc', { stdio: 'inherit' });
 	}
 	await esbuild.build(opts);
+	if (process.argv.includes('--exports')) {
+		const indicies: string[] = [];
+		const subpackages: string[] = [];
+
+		for (const target of fs.readdirSync('./dist/', { recursive: true })) {
+			const test = target.toString().replace(/\\/g, '/');
+			if (/^data\//.test(test)) continue;
+			if (/^styling\//.test(test)) continue;
+			if (/common.js$/i.test(test)) continue;
+			if (/\.js$/i.test(test)) {
+				const name = path.basename(test);
+				if (name === 'index.js') indicies.push(test);
+				else subpackages.push(test);
+			}
+		}
+
+		const fake_exports: { [key: string]: string } = {};
+		console.log('\nDO INDICIES');
+		for (const index of indicies) {
+			const subpackage = `./${path.dirname(index)}`;
+			const source = `./dist/${index}`;
+			console.log(`\t${subpackage}: ${source}`);
+			fake_exports[subpackage.replace(/\\/g, '/')] = source.replace(/\\/g, '/');
+		}
+		console.log('\nDO SUBPACKAGE');
+		for (const target of subpackages) {
+			const subpackage = `./${path.join(path.dirname(target), path.basename(target, path.extname(target)))}`;
+			const source = `./dist/${target}`;
+			console.log(`\t${subpackage}: ${source}`);
+			fake_exports[subpackage.replace(/\\/g, '/')] = source.replace(/\\/g, '/');
+		}
+		console.log('\n"exports":', JSON.stringify(fake_exports, undefined, 4));
+	}
 
 	// opts.outfile = 'dist/index.cjs.js';
 	// opts.format = 'cjs';
@@ -75,7 +105,7 @@ async function do_build() {
 }
 
 // main
-(async () => {
+async function main() {
 	if (process.argv.includes('--clean')) {
 		const dir = opts.outdir || './dist/';
 		if (fs.existsSync(dir)) {
@@ -94,4 +124,6 @@ async function do_build() {
 			process.exit();
 		});
 	} else do_build();
-})();
+}
+
+main();

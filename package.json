@@ -8,16 +8,31 @@
   "type": "module",
   "types": "dist/types/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
+    "./.": "./dist/index.js",
+
     "./arrangers": "./dist/arrangers/index.js",
     "./elements": "./dist/elements/index.js",
     "./managers": "./dist/managers/index.js",
     "./utils": "./dist/utils/index.js",
-    
-    "./arrangers/*": "./dist/arrangers/*.js",
-    "./elements/*": "./dist/elements/*.js",
-    "./managers/*": "./dist/managers/*.js",
-    "./utils/*": "./dist/utils/*.js"
+
+    "./arrangers/ElementArranger": "./dist/arrangers/ElementArranger.js",
+    "./arrangers/MasterArranger": "./dist/arrangers/MasterArranger.js",
+
+    "./elements/FunctionElement": "./dist/elements/FunctionElement.js",
+    "./elements/InputElement": "./dist/elements/InputElement.js",
+    "./elements/ModalElement": "./dist/elements/ModalElement.js",
+    "./elements/TextElement": "./dist/elements/TextElement.js",
+    "./elements/ToggleElement": "./dist/elements/ToggleElement.js",
+
+    "./managers/ArrayManager": "./dist/managers/ArrayManager.js",
+    "./managers/EventManager": "./dist/managers/EventManager.js",
+    "./managers/PointerManager": "./dist/managers/PointerManager.js",
+    "./managers/SceneManager": "./dist/managers/SceneManager.js",
+
+    "./utils/AsyncHelpers": "./dist/utils/AsyncHelpers.js",
+    "./utils/Core": "./dist/utils/Core.js",
+    "./utils/CustomElement": "./dist/utils/CustomElement.js",
+    "./utils/DumRouter": "./dist/utils/DumRouter.js"
   },
   "files": [
     "dist/"

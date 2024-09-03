@@ -1,7 +1,7 @@
 import { gsap } from 'gsap'; // __dum_omit
 import { get_element } from '../utils/Core';
 import { AsyncHelpers } from '../utils';
-import { iter_filter } from '../utils/Structural';
+import { iterable } from '../utils/Core';
 
 export enum STATE {
 	INITIAL,
@@ -377,7 +377,7 @@ export class MasterArranger<T> {
 		} else {
 			const container = this.get_container(parent);
 			const doomed = new Set<T>(
-				iter_filter(this.item_map.keys(), (v) => this.get_item(v).container === container)
+				iterable.filter(this.item_map.keys(), (v) => this.get_item(v).container === container)
 			);
 
 			for (const child of children) {

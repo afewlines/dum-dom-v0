@@ -1,6 +1,6 @@
-import { type ElementOpts, get_element } from '../utils/Core';
-import { type ElementCallbacks } from '../utils/Core';
 import { type ArrangerTransitions, ElementArranger } from '../arrangers/ElementArranger';
+import { type ElementCallbacks, type ElementOpts } from '../common';
+import { get_element } from '../utils/Core';
 
 // TYPES
 type KeyFn<T> = (value: T) => string;
