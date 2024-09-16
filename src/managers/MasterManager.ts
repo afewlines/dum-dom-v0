@@ -203,13 +203,11 @@ export class MasterArranger<T> {
 	// getters
 	// factories
 	protected get_item(value: T, parent?: Element): ManagedItem<T> {
+		// either use the target container or try to get element's container
 		let item = this.item_map.get(value);
 		if (item) return item;
 
-		const el = this.fn_init(value);
-
-		// either use the target container or try to get element's container
-
+		const el = this.fn_init(value); // get/create element
 		item = {
 			value: value,
 			el: el,
@@ -218,7 +216,6 @@ export class MasterArranger<T> {
 		};
 
 		this.item_map.set(value, item);
-
 		return item;
 	}
 	protected get_container(el: Element): ManagedContainer {
@@ -345,8 +342,7 @@ export class MasterArranger<T> {
 
 		// update position/transform
 	}
-	public reposition(value: T) {
-		// TODO maybe rename to `update_position`
+	public update_transform(value: T) {
 		const item = this.get_item(value);
 		// TODO repostions don't move quite right w/ padding/gap/margin/etc? something's off
 		if (this.transitions?.move) {
@@ -371,7 +367,8 @@ export class MasterArranger<T> {
 		// nuke doomed
 		for (const value of doomed.keys()) this.reparent(value);
 	}
-	public update_single(parent: Element | undefined, children: T[]) {
+	public update_container(parent: Element | undefined, children: T[]) {
+		// set all child's parent (reparent or deletee)
 		if (parent === undefined) {
 			for (const child of children) this.reparent(child);
 		} else {

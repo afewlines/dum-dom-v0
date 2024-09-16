@@ -8,7 +8,7 @@
   "type": "module",
   "types": "dist/types/index.d.ts",
   "exports": {
-    "./.": "./dist/index.js",
+    ".": "./dist/index.js",
 
     "./arrangers": "./dist/arrangers/index.js",
     "./elements": "./dist/elements/index.js",
@@ -26,6 +26,7 @@
 
     "./managers/ArrayManager": "./dist/managers/ArrayManager.js",
     "./managers/EventManager": "./dist/managers/EventManager.js",
+    "./managers/MasterManager": "./dist/managers/MasterManager.js",
     "./managers/PointerManager": "./dist/managers/PointerManager.js",
     "./managers/SceneManager": "./dist/managers/SceneManager.js",
 

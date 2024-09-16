@@ -14,8 +14,8 @@ export * as ToggleElement from './elements/ToggleElement';
 
 // arrangers
 export * as ElementArranger from './arrangers/ElementArranger';
-export * as MasterArranger from './arrangers/MasterArranger';
 
 // managers
 export * as ArrayManager from './managers/ArrayManager';
+export * as MasterArranger from './managers/MasterManager';
 export * as SceneManager from './managers/SceneManager';
