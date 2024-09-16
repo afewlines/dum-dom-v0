@@ -16,7 +16,8 @@ const opts: esbuild.BuildOptions = {
 	bundle: true,
 	splitting: true,
 	treeShaking: true,
-	minify: false,
+	// minify: false,
+	minify: true,
 
 	chunkNames: 'data/[ext]/[name]-[hash]',
 
@@ -94,6 +95,8 @@ async function do_build() {
 		}
 		console.log('\n"exports":', JSON.stringify(fake_exports, undefined, 4));
 	}
+
+	// TODO necro cjs/min formats
 
 	// opts.outfile = 'dist/index.cjs.js';
 	// opts.format = 'cjs';

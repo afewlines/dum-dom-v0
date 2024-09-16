@@ -28,7 +28,8 @@ export function get_element(target: Element | string, parent?: Element): Element
 	else return target;
 }
 
-interface CreateElementOpts {
+interface CreateElementOpts<T extends keyof HTMLElementTagNameMap> {
+	tag?: T;
 	custom?: string;
 
 	id?: string;
@@ -38,11 +39,12 @@ interface CreateElementOpts {
 
 	inner_html?: string;
 }
-export function create_element<T extends keyof HTMLElementTagNameMap>(
-	tag: T,
-	opts?: CreateElementOpts
+export function create_element<T extends keyof HTMLElementTagNameMap = 'div'>(
+	opts?: CreateElementOpts<T>
 ): HTMLElementTagNameMap[T] {
-	const el = document.createElement(tag, { is: opts?.custom });
+	const el = document.createElement(opts?.tag || 'div', {
+		is: opts?.custom,
+	}) as HTMLElementTagNameMap[T];
 
 	// TODO expand?
 	if (opts) {
