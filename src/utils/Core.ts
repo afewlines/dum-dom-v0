@@ -28,6 +28,35 @@ export function get_element(target: Element | string, parent?: Element): Element
 	else return target;
 }
 
+interface CreateElementOpts {
+	custom?: string;
+
+	id?: string;
+
+	class?: string;
+	class_list?: string[];
+
+	inner_html?: string;
+}
+export function create_element<T extends keyof HTMLElementTagNameMap>(
+	tag: T,
+	opts?: CreateElementOpts
+): HTMLElementTagNameMap[T] {
+	const el = document.createElement(tag, { is: opts?.custom });
+
+	// TODO expand?
+	if (opts) {
+		if (opts.id) el.id = opts.id;
+
+		if (opts.class) el.classList.add(opts.class);
+		if (opts.class_list) el.classList.add(...opts.class_list);
+
+		if (opts.inner_html) el.innerHTML = opts.inner_html;
+	}
+
+	return el;
+}
+
 /** shuffle elements inplace */
 export function shuffle<T>(arr: Array<T>, remaining?: number): Array<T> {
 	if (remaining === undefined) remaining = arr.length;
