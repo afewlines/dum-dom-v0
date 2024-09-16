@@ -21,7 +21,7 @@ export interface RouteBase {
 	activate?: ActivateFn;
 	deactivate?: DeactivateFn;
 }
-interface Route extends RouteBase {
+export interface Route extends RouteBase {
 	path: string;
 }
 
