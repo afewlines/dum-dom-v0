@@ -152,5 +152,3 @@ class _CustomElementManager {
 export const CustomElementManager = new _CustomElementManager();
 export const create_instance = CustomElementManager.create_instance;
 export const get_instance = CustomElementManager.get_instance;
-
-// TODO custom element instance factory

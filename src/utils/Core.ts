@@ -38,6 +38,7 @@ interface CreateElementOpts<T extends keyof HTMLElementTagNameMap> {
 	class_list?: string[];
 
 	inner_html?: string;
+	text_content?: string;
 }
 export function create_element<T extends keyof HTMLElementTagNameMap = 'div'>(
 	opts?: CreateElementOpts<T>
@@ -54,6 +55,7 @@ export function create_element<T extends keyof HTMLElementTagNameMap = 'div'>(
 		if (opts.class_list) el.classList.add(...opts.class_list);
 
 		if (opts.inner_html) el.innerHTML = opts.inner_html;
+		if (opts.text_content) el.textContent = opts.text_content;
 	}
 
 	return el;

@@ -13,3 +13,6 @@ export interface ElementOpts {
 	/** Base element reference or selector. Used with {@link get_element}.*/
 	target: Element | string;
 }
+
+export type HookResult<T = never> = undefined | void | T;
+export type HookResultAsync<T = never> = Promise<HookResult<T>>;
