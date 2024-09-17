@@ -125,14 +125,14 @@ export class DumRouter {
 	protected async render_route(route: Route) {
 		// before render hook
 		if (this.hooks.before_render) {
-			const res = await this.hooks.before_render(route);
-			if (res === false) return;
-			switch (typeof res) {
+			const result = await this.hooks.before_render(route);
+			if (result === false) return;
+			switch (typeof result) {
 				case 'string':
-					route = this.routes.get(res) as Route;
+					route = this.routes.get(result) as Route;
 					break;
 				case 'object':
-					route = res;
+					route = result;
 					break;
 			}
 		}
@@ -142,6 +142,7 @@ export class DumRouter {
 			if (this.active_route === route) return;
 			this.active_route.deactivate?.(this.container);
 		}
+		this.active_route = route;
 
 		// sort out root element stuff
 		let res: RootElement;
@@ -149,7 +150,6 @@ export class DumRouter {
 		else res = route.root;
 
 		// okay, start applying
-		this.active_route = route;
 		this.apply_header(route);
 
 		// apply root
