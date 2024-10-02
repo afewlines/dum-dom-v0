@@ -23,6 +23,7 @@ const opts: esbuild.BuildOptions = {
 
 	logLevel: 'info',
 	metafile: true,
+	sourcemap: true,
 
 	external: ['gsap'],
 
