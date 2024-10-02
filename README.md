@@ -1,6 +1,12 @@
 # dum-dom v0
 
-> _dum-dom... is giving me his cache_ - Krule, 2017
+> "_dum-dom... is giving me his cache_." - K. Krule, 2017
+
+A dum way to interact with the HTML DOM.
+
+This framework is designed to offer control over the DOM on both micro and macro scales, accomplished by eschewing reactivity and other takes-control-away-from design patterns.
+
+**Looking for a dum web project packer?** Let me introduce you to my associate, [dum-packer](http://github.com/afewlines/dum-packer-v0).
 
 **This repository is still way deep in development. Anything and everything is liable to change depending on my wants and whims.**
 
@@ -27,6 +33,8 @@
 While the project is still in v0, your best call is to clone this repo, build it with `npm install && npm run build`, then install it in the consuming project with `npm install [path to cloned repo directory]`.
 
 # Usage
+
+I'll be adding a proper example that shows a project using dum-dom, dum-packer, and esbuild. Just... not yet.
 
 **Note:** Code is split, so import from closer-to-the-source to reduce irrelevant code.
 For example, `import * as MasterManager from 'dum-dom/managers/MasterManager'` is better than `import { MasterManager } from 'dum-dom'` as the `dum-dom` endpoint references _everything_.
