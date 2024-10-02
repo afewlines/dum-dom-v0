@@ -1,8 +1,4 @@
-import * as eslint from 'eslint';
-// import {ESLint} from 'eslint';
-eslint.Linter;
-
-const options: eslint.ESLint.Options = {
+const options = {
 	root: true,
 	extends: [
 		'eslint:recommended',

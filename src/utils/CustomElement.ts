@@ -1,3 +1,6 @@
+// Copyright 2024 Brad Soellner
+// SPDX-License-Identifier: Apache-2.0
+
 type ctor<ET extends HTMLElement> = { new (...args: unknown[]): ET };
 interface AtributeMap {
 	[key: string]: string;

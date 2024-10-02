@@ -1,3 +1,6 @@
+// Copyright 2024 Brad Soellner
+// SPDX-License-Identifier: Apache-2.0
+
 /* eslint-disable @typescript-eslint/no-namespace */
 /** Get pixel size for rem on current device */
 export const rem = (() => {

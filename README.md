@@ -10,21 +10,21 @@
 - **Element Managers:** Want to display an array of data? Done. Want to change scenes in a customizable and transparent way? Sorted. Want to move a bunch of elements with various transforms between parents? Bish, bash, bosh.
 - **Bespoke Elements:** Troublesome variables triggering reactivity too often? Setups required for tightly-interactive `input` elements getting you down? Overbearing frameworks forcing you to make **bad code** because they want to hold your hand like a clingy middle-school boyfriend? Fear not, because now that responsiblity is on _your_ shoulders!
 - **Adaptive Single Page Routing:** Whether you're working on a offline `file://` served app or a sprawling Taj Mahal-esq website, relax and unwind with our snappy routing provider and complete control over your content.
+- **Stateful Transitions:** To be entirely transparent, the inception of this project was when I wanted more control over move transitions in Vue + to move elements between parents. I realized it was a juicy little problem and... here we are.
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Elements](#Elements)
-  - [Managers](#Managers)
-  - [Utilities](#Utilities)
+  - [Elements](#elements)
+  - [Managers](#managers)
+  - [Utilities](#utilities)
 - [Roadmap](#roadmap)
-- [Contributing](#contributing)
 - [License](#license)
 
 # Installation
 
-get lucky :)
+While the project is still in v0, your best call is to clone this repo, build it with `npm install && npm run build`, then install it in the consuming project with `npm install [path to cloned repo directory]`.
 
 # Usage
 
@@ -33,31 +33,31 @@ For example, `import * as MasterManager from 'dum-dom/managers/MasterManager'` i
 
 ## Elements
 
-### FunctionElement
+**FunctionElement:** Element with an `.update()`.
 
-### InputElement
+**InputElement:** Input element with easy-access event hooks.
 
-### ModalElement
+**ModalElement:** Customizable pop-up element.
 
-### TextElement
+**TextElement:** Element with a `value` property that controls the element's text content.
 
-### ToggleElement
+**ToggleElement:** Element which can be toggled in/out of the DOM.
 
 ## Managers
 
-### ArrayManager
+**ArrayManager:** Manage multiple elements in one container for each element in a given array.
 
-### MasterManager
+**MasterManager:** Manage multiple elements across an entire page.
 
-### SceneManager
+**SceneManager:** Display one of the provided 'scene' elements.
 
 ## Utilities
 
-### AsyncHelpers
+**AsyncHelpers:** Mostly pointless except to avoid some of the scoping issues with asyncs.
 
-### CustomElement
+**CustomElement:** Custom HTML element creation, registration, and managment system.
 
-### DumRouter
+**DumRouter:** Web/local single-page application router.
 
 # Roadmap
 
@@ -65,10 +65,6 @@ Make more and better. Then improve the more until it's better, too.
 
 > _Translation: I have no plan._
 
-# Contributing
-
-No.
-
 # License
 
-How the hell does this stuff work???
+Apache 2.0

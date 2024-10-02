@@ -1,3 +1,6 @@
+// Copyright 2024 Brad Soellner
+// SPDX-License-Identifier: Apache-2.0
+
 type PointerEventMap =
 	| 'pointercancel'
 	| 'pointerdown'

@@ -1,3 +1,6 @@
+// Copyright 2024 Brad Soellner
+// SPDX-License-Identifier: Apache-2.0
+
 // frame
 export async function wait_frame(): Promise<unknown> {
 	return await new Promise((res) => requestAnimationFrame(res));

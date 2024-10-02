@@ -1,3 +1,6 @@
+// Copyright 2024 Brad Soellner
+// SPDX-License-Identifier: Apache-2.0
+
 /** Generic lifecycle callbacks. */
 export interface ElementCallbacks<T> {
 	/** Triggers after update is requested but before it's processed. */
