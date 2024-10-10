@@ -37,9 +37,11 @@ interface CreateElementOpts<T extends keyof HTMLElementTagNameMap> {
 
 	id?: string;
 
-	class?: string;
-	class_list?: string[];
+	// classes
+	class_list?: string | string[];
 
+	// contents
+	children?: Element[];
 	inner_html?: string;
 	text_content?: string;
 }
@@ -54,9 +56,11 @@ export function create_element<T extends keyof HTMLElementTagNameMap = 'div'>(
 	if (opts) {
 		if (opts.id) el.id = opts.id;
 
-		if (opts.class) el.classList.add(opts.class);
-		if (opts.class_list) el.classList.add(...opts.class_list);
+		if (opts.class_list)
+			if (typeof opts.class_list === 'string') el.classList.add(opts.class_list);
+			else el.classList.add(...opts.class_list);
 
+		if (opts.children) el.replaceChildren(...opts.children);
 		if (opts.inner_html) el.innerHTML = opts.inner_html;
 		if (opts.text_content) el.textContent = opts.text_content;
 	}

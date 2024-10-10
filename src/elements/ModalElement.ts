@@ -6,7 +6,7 @@ import { get_element } from '../utils/Core';
 import styles from '../styling/modal.module.scss';
 
 // reexport css module classes
-// TODO do i really want to use css modules?
+// TODO do i really want to use css modules? FIX THIS ISH
 export const modal_classes = styles;
 
 // ELEMENT FUNCTION
